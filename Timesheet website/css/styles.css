@@ -1,47 +1,103 @@
+/* ================= GLOBAL SYSTEM ================= */
+
 * {
   box-sizing: border-box;
+}
+
+:root {
+  --primary: #2563eb;
+  --primary-dark: #1e40af;
+  --bg: #eef2ff;
+  --card: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --radius: 10px;
 }
 
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
-  background: #f4f6f8;
+  background: var(--card);
+  color: var(--text);
 }
 
-/* NAVBAR */
+/* ================= NAVBAR ================= */
+
 .navbar {
-  background: #1e3a8a;
+  background: #1e40af;
   color: white;
-  padding: 12px 20px;
+  padding: 16px 28px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .navbar h2 {
+  margin: 0;
   font-size: 18px;
-
+  font-weight: 600;
 }
 
 .navbar button {
-  background-color: #2563eb;
-  color: white;
+  background: white;
+  color: var(--primary);
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  font-weight: 500;
   border: none;
-  padding: 8px 10px;
-  border-radius: 4px;
   cursor: pointer;
 }
 
 .navbar button:hover {
-  background-color: #1d4ed8;
+  background: #2563eb;
+  color: white;
 }
 
-/* COMMON BUTTONS */
+/* ================= BUTTON SYSTEM ================= */
+
 button {
+  border: none;
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  background-color: #1d4ed8;
-  color: #f4f6f8;
-  border: 1px solid gray;
-  border-radius: 5px;
-  padding: 5px 5px;
+  transition: 0.2s ease;
+}
+
+button.primary {
+  background: #2563eb;
+  color: white;
+}
+
+button.primary:hover {
+  background: #1e40af;
+}
+
+/* ================= TABLE SYSTEM ================= */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 12px;
+  background: #e0e7ff;
+  color: var(--primary-dark);
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+td {
+  padding: 12px;
+  font-size: 13px;
+  border-bottom: 1px solid var(--border);
+}
+
+tr:hover {
+  background: #f1f5ff;
 }

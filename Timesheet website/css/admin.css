@@ -1,99 +1,113 @@
-/* admin.css */
+/* ================= ADMIN DASHBOARD ================= */
+
+.dashboard {
+  background: var(--card);
+  margin: 24px;
+  padding: 28px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+  border-top: 2px solid var(--border);
+  border-right: 2px solid var(--border);
+}
+
+
+
+.dashboard table td,th{
+  border: 1px solid black;
+  border-collapse: separate;
+}
 
 .admin-tabs {
   display: flex;
-  gap: 10px;
-  padding: 10px 16px;
-  flex-wrap: wrap;
+  gap: 14px;
+  padding: 20px 24px 0 24px;
 }
 
 .admin-tabs button {
-  padding: 8px 14px;
-  border: none;
-  background: #2563eb;
+  background: var(--primary);
   color: white;
+  padding: 8px 18px;
+  border-radius: 8px;
 }
 
-.top-section label {
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-}
-
-.top-section button{
-  margin-top: 1vmax;
-}
-
-/* FORCE TABLE LAYOUT BACK */
-.dashboard table {
-  display: table !important;
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-}
-
-.dashboard thead {
-  display: table-header-group !important;
-}
-
-.dashboard tbody {
-  display: table-row-group !important;
-}
-
-.dashboard tr {
-  display: table-row !important;
-}
-
-.dashboard th,
-.dashboard td {
-  display: table-cell !important;
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-}
-
-.dashboard th {
-  background: #1e3a8a;
-  color: white;
-}
-
-/* FLEX SHOULD NEVER AFFECT TABLES */
-.dashboard table,
-.dashboard table * {
-  flex: none !important;
-}
-
-
-.dashboard {
-  padding: 16px;
-  overflow-x: auto;
+.admin-tabs button:hover {
+  background: white;
+  color: var(--primary);
+  border:1px solid var(--primary);
 }
 
 .top-section,
 .filters {
   display: flex;
-  gap: 12px;
+  gap: 18px;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-end;
+  margin-bottom: 22px;
 }
 
-.top-section select,
-.filters select {
-  min-width: 140px;
-  padding: 6px;
+.top-section button{
+  background-color: #1f4fd8;
+  color: white;
 }
 
-.admin-action-btn {
-  padding: 6px 10px;
-  border-radius: 4px;
+.top-section button:hover{
+  color: #1f3c88;
+  background-color: white;
+  border: 1px solid #1f3c88;
 }
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  font-weight: 500;
+  gap: 6px;
+}
+
+.dashboard #btn{
+  background-color: #1f4fd8;
+  color: white;
+}
+
+.dashboard #btn:hover{
+  background-color: white;
+  color: #1f3c88;
+  border: 1px solid #1f3c88;
+}
+
+select,
+input {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  font-size: 13px;
+}
+
+/* Action Buttons */
 
 .approve-btn {
-  background: #22c55e;
+  background: white;
+  color: #1f4fd8;
+  border: 1px solid #1f3c88;
+}
+
+.approve-btn:hover{
+  background: #1f4fd8;
   color: white;
 }
 
 .reject-btn {
-  background: #ef4444;
+  background: white;
+  color: #1f4fd8;
+  border: 1px solid #1f3c88;
+}
+
+.reject-btn:hover{
+  background: #1f4fd8;
   color: white;
+}
+
+.admin-action-btn {
+  padding: 6px 12px;
+  border-radius: 8px;
 }

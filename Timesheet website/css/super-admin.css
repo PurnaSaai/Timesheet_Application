@@ -3,18 +3,24 @@ body {
   margin: 0;
 }
 
-
-
 .tabs {
   display: flex;
   gap: 10px;
   padding: 10px;
-  background: #f2f2f2;
+
 }
 
 .tabs button {
   padding: 8px 16px;
   cursor: pointer;
+  background: #1f4fd8;
+  color: white;
+}
+
+.tabs button:hover{
+  background: white;
+  color: #1f3c88;
+  border: 1px solid #1e3a8a;
 }
 
 .section {
@@ -32,6 +38,17 @@ body {
   margin-bottom: 15px;
 }
 
+.filters button{
+  background: #1f4fd8;
+  color: white;
+}
+
+.filters button:hover{
+  background-color: white;
+  color:#1f4fd8;
+  border: 1px solid #1f3c88;
+}
+
 .timesheet-table {
   width: 100%;
   border-collapse: collapse;
@@ -39,13 +56,32 @@ body {
 
 .timesheet-table th,
 .timesheet-table td {
-  border: 1px solid black;
+  border: 1px solid var(--border);
   padding: 8px;
 }
 
 .timesheet-table th{
     background-color: #1e3a8a;
     color: white;
+}
+
+.timesheet-table button{
+   background-color: white;
+  color: #2563eb;
+  border:1px solid #1f4fd8 ;
+}
+
+.timesheet-table button:hover{
+  background-color: #2563eb;
+  color: white;
+
+}
+
+#tt th{
+  border: 2px solid black;
+}
+#tt td{
+  border: 1px solid black;
 }
 
 .top-section,
@@ -174,13 +210,21 @@ body {
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 3px;
+  border-radius: 7px;
 }
 
 .holiday-table td button:hover {
-  background-color: #163aa9;
+  background-color: white;
+  color: #1f4fd8;
+  border: 1px solid #1f3c88;
 }
 
 #changeAction{
-  background-color:#e70e45;
+  background-color:white;
+  color: #e70e45;
+  border:1px solid #e70e45;
+}
+#changeAction:hover{
+  background-color: #e70e45;
+  color: white;
 }

@@ -276,7 +276,7 @@ exports.getSubmittedTimesheets = async (req, res) => {
 };
 
 exports.approveTimesheet = async (req, res) => {
-  const { timesheetId } = req.params;
+  const timesheetId = req.params.timesheetId || req.params.id;
 
   try {
     const [[sheet]] = await db.query(
@@ -300,6 +300,17 @@ exports.approveTimesheet = async (req, res) => {
     );
 
     await db.query(
+      `INSERT INTO timesheet_logs
+      (ts_id, action, reason, modify_by, modify_role)
+      VALUES (?, 'APPROVED', NULL, ?, ?)`,
+      [
+        timesheetId,
+        req.user.uid,
+        req.user.role
+      ]
+    );
+
+    await db.query(
       `INSERT INTO notifications (uid, msg, type, status)
        VALUES (?, ?, 'APPROVED', 'UNREAD')`,
       [
@@ -317,7 +328,7 @@ exports.approveTimesheet = async (req, res) => {
 };
 
 exports.rejectTimesheet = async (req, res) => {
-  const { timesheetId } = req.params;
+  const timesheetId = req.params.timesheetId || req.params.id;
   const { reason } = req.body;
 
   try {
@@ -339,6 +350,18 @@ exports.rejectTimesheet = async (req, res) => {
        SET status = 'REJECTED', rej_reason = ?
        WHERE ts_id = ?`,
       [reason, timesheetId]
+    );
+
+    await db.query(
+      `INSERT INTO timesheet_logs
+      (ts_id, action, reason, modify_by, modify_role)
+      VALUES (?, 'REJECTED', ?, ?, ?)`,
+      [
+        timesheetId,
+        reason,
+        req.user.uid,
+        req.user.role
+      ]
     );
 
     await db.query(
@@ -677,3 +700,25 @@ exports.getUserNotifications = async (req, res) => {
 };
 
 
+exports.getTimesheetLogs = async (req, res) => {
+  const { timesheetId } = req.params;
+
+  try {
+    const [rows] = await db.query(`
+      SELECT 
+        l.action,
+        l.reason,
+        l.modify_role,
+        u.emp_id,
+        l.action_at
+      FROM timesheet_logs l
+      JOIN users u ON u.uid = l.modify_by
+      WHERE l.ts_id = ?
+      ORDER BY l.action_at DESC
+    `, [timesheetId]);
+
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ message: "Failed to load logs" });
+  }
+};

@@ -34,12 +34,12 @@ body {
 
 .timesheet-table {
   width: 100%;
-
+  border-collapse: collapse;
 }
 
 .timesheet-table th,
 .timesheet-table td {
-  border: 1px solid #ccc;
+  border: 1px solid black;
   padding: 8px;
 }
 
@@ -179,4 +179,8 @@ body {
 
 .holiday-table td button:hover {
   background-color: #163aa9;
+}
+
+#changeAction{
+  background-color:#e70e45;
 }

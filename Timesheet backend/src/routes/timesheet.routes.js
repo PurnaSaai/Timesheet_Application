@@ -37,21 +37,21 @@ router.post(
 router.get(
   "/submitted",
   authenticate,
-  authorize(["ADMIN"]),
+  authorize(["ADMIN","SUPER_ADMIN"]),
   timesheetController.getSubmittedTimesheets
 );
 
 router.post(
   "/approve/:timesheetId",
   authenticate,
-  authorize(["ADMIN"]),
+  authorize(["ADMIN","SUPER_ADMIN"]),
   timesheetController.approveTimesheet
 );
 
 router.post(
   "/reject/:timesheetId",
   authenticate,
-  authorize(["ADMIN"]),
+  authorize(["ADMIN","SUPER_ADMIN"]),
   timesheetController.rejectTimesheet
 );
 
@@ -74,7 +74,7 @@ router.get(
 router.get(
   "/timesheets",
   authenticate,
-  authorize(["ADMIN"]),
+  authorize(["ADMIN","SUPER_ADMIN"]),
   timesheetController.getAdminTimesheets
 );
 
@@ -82,7 +82,7 @@ router.get(
 router.get(
   "/admin/total-hours/:userId/:year/:month",
   authenticate,
-  authorize(["ADMIN"]),
+  authorize(["ADMIN","SUPER_ADMIN"]),
   timesheetController.getAdminMonthlyTotal
 );
 
@@ -94,7 +94,12 @@ router.get(
   timesheetController.getUserNotifications
 );
 
-
+router.get(
+  "/logs/:timesheetId",
+  authenticate,
+  authorize(["ADMIN", "SUPER_ADMIN"]),
+  timesheetController.getTimesheetLogs
+);
 
 module.exports = router;
 

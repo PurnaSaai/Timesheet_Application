@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Portal</title>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+<body onload="initAdmin()">
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <h2><span id="adminTitle"></span></h2>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<div class="admin-tabs">
+  <button onclick="showTimesheets()">Timesheets</button>
+  <button onclick="showUsers()">User Approvals</button>
+</div>
+
+<!-- ================= TIMESHEET DASHBOARD ================= -->
+<div id="timesheetSection" class="dashboard">
+
+  <h2>Timesheets</h2>
+
+  <!-- FILTERS -->
+  <div class="top-section">
+
+    <label>
+      Employee:
+      <select id="tsEmployeeFilter" onchange="loadAdminTimesheets()"></select>
+    </label>
+
+    <label>
+      Year:
+      <select id="tsYearFilter"></select>
+    </label>
+
+    <label>
+      Month:
+      <select id="tsMonthFilter"></select>
+    </label>
+
+    <label>
+      Status:
+      <select id="tsStatusFilter">
+        <option value="all">All</option>
+        <option value="SUBMITTED">SUBMITTED</option>
+        <option value="APPROVED">APPROVED</option>
+        <option value="REJECTED">REJECTED</option>
+      </select>
+    </label>
+
+    <button onclick="loadAdminTimesheets()">Search</button>
+    
+  </div>
+
+  <!-- TIMESHEET TABLE -->
+  <table>
+    <thead>
+      <tr>
+        <th>Employee</th>
+        <th>Date</th>
+        <th>Total Hours</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Rejection Reason</th>
+        <th id="actionHeader">Action</th>
+      </tr>
+    </thead>
+    <tbody id="adminTableBody"></tbody>
+  </table>
+
+  <div id="adminTotalBox" style="
+    display:none;
+    text-align:right;
+    font-weight:600;
+    margin-top:10px;
+    padding-right:10px;
+  ">
+    Total Spent Hours (Month): 
+    <span id="adminTotalHours">0.00</span> h
+  </div>
+</div>
+
+<!-- ================= USER APPROVAL DASHBOARD ================= -->
+<div id="userApprovalSection" class="dashboard" style="display:none;">
+
+  <h2>User Approvals</h2>
+
+  <div class="filters">
+    <label>
+      Status:
+      <select id="userStatusFilterApproval">
+        <option value="PENDING" selected>Pending</option>
+        <option value="APPROVED">Approved</option>
+        <option value="REJECTED">Rejected</option>
+      </select>
+    </label>
+
+    <button onclick="loadUsers(document.getElementById('userStatusFilterApproval').value)">
+      Search
+    </button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Employee ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Designation</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+
+    <tbody id="pendingUsersBody"></tbody>
+  </table>
+
+</div>
+
+
+
+<script src="js/auth.js"></script>
+<script src="js/admin.js"></script>
+
+</body>
+</html>

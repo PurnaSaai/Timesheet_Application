@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Super Admin Portal</title>
+  <link rel="stylesheet" href="./css/super-admin.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="navbar">
+  <h2 id="superAdminTitle">SUPER ADMIN</h2>
+  <button onclick="logout()">Logout</button>
+</header>
+
+<nav class="tabs">
+  <button onclick="showSection('timesheets')">Timesheets</button>
+  <button onclick="showSection('approvals')">Approvals <span id="approvalBadge" class="badge"></span></button>
+  <button onclick="showSection('holidays')">Holidays</button>
+</nav>
+
+<main>
+  <section id="timesheetsSection" class="section">
+    <h3>Timesheets</h3>
+    <div class="filters">
+      <label>
+        Department:
+        <select id="saDeptFilter" onchange="loadSuperAdminEmployees()">
+          <option value="all">All</option>
+          <option value="HRMS">HRMS</option>
+          <option value="SUPPORT">Support</option>
+          <option value="DIGITAL_MARKETING">Digital Marketing</option>
+          <option value="SOFTWARE">Software</option>
+        </select>
+      </label>
+
+      <label>
+        Employee:
+        <select id="saEmployeeFilter">
+          <option value="all">All</option>
+        </select>
+      </label>
+
+      <label>
+        Year:
+        <select id="saYearFilter"></select>
+      </label>
+
+      <label>
+        Month:
+        <select id="saMonthFilter"></select>
+      </label>
+
+      <label>
+        Status:
+        <select id="saStatusFilter">
+          <option value="all">All</option>
+          <option value="PENDING">Pending</option>
+          <option value="APPROVED">Approved</option>
+          <option value="REJECTED">Rejected</option>
+        </select>
+      </label>
+
+      <button onclick="loadSuperAdminTimesheets()">Search</button>
+    </div>
+
+    <table class="timesheet-table">
+      <thead>
+        <tr>
+          <th>Emp ID</th>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Total Hours</th>
+          <th>Status</th>
+          <th>Details</th>
+        </tr>
+      </thead>
+      <tbody id="saTimesheetBody"></tbody>
+    </table>
+  </section>
+
+
+
+<!------------------------------ Approval ------------------------------------------->
+  
+
+  <section id="approvalsSection" class="section hidden">
+    <h3>Pending Approvals</h3>
+    <table class="timesheet-table">
+      <thead>
+        <tr>
+          <th>Emp ID</th>
+          <th>Name</th>
+          <th>Department</th>
+          <th>Role</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="approvalsTableBody"></tbody>
+    </table>
+
+    <h3 style="margin-top:30px;">Approval History</h3>
+
+    <table class="timesheet-table">
+      <thead>
+        <tr>
+          <th>Employee</th>
+          <th>Role</th>
+          <th>Action</th>
+          <th>Reason</th>
+          <th>Approved By</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="approvalHistoryBody"></tbody>
+    </table>
+  </section>
+
+
+
+  <!------------------------------ Holiday -------------------------------------------->
+  
+
+  <section id="holidaysSection" class="section hidden" onchange="onHolidayYearChange()">
+    <h3>Holiday Management</h3>
+
+    <div class="holiday-controls">
+      <select id="holidayYearFilter"></select>
+
+      <input type="date" id="holidayDate" />
+
+      <input
+        type="text"
+        id="holidayDesc"
+        placeholder="Description (optional)"
+      />
+
+      <button id="addHolidayBtn" onclick="addHoliday()">Add Holiday</button>
+    </div>
+
+    <table class="holiday-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="holidayTableBody"></tbody>
+    </table>
+  </section>
+</main>
+
+<script src="./js/auth.js"></script>
+<script src="./js/super-admin.js"></script>
+<script src="./js/superadmin-timesheets.js"></script>
+<script src="./js/superadmin-approvals.js"></script>
+<script src="./js/superadmin-holidays.js"></script>
+</body>
+</html>

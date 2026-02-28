@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: #f4f6f8;
+}
+
+/* NAVBAR */
+.navbar {
+  background: #1e3a8a;
+  color: white;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar h2 {
+  font-size: 18px;
+
+}
+
+.navbar button {
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.navbar button:hover {
+  background-color: #1d4ed8;
+}
+
+/* COMMON BUTTONS */
+button {
+  cursor: pointer;
+  background-color: #1d4ed8;
+  color: #f4f6f8;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 5px 5px;
+}

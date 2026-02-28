@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Signup</title>
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/auth.css">
+
+
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+  <h2>SBL TIme Sheet</h2>
+  <button onclick="goToLogin()">Login</button>
+</div>
+
+<!-- ADMIN SIGNUP PAGE -->
+<div class="login-page">
+
+  <div class="login-card">
+    <h2>Admin Registration</h2>
+    <p class="login-subtitle">Restricted Access</p>
+
+    <input id="fullName" placeholder="Full Name" />
+    <input id="employeeId" placeholder="Employee ID" />
+    <input id="email" type="email" placeholder="Email" />
+    <input id="password" type="password" placeholder="Password" />
+    <input id="confirmPassword" type="password" placeholder="Confirm Password" />
+    <select id="designation">
+      <option value="">Select Department</option>
+      <option value="HRMS">HRMS</option>
+      <option value="SUPPORT">Support</option>
+      <option value="DIGITAL_MARKETING">Digital Marketing</option>
+      <option value="SOFTWARE">Software</option>
+    </select>
+
+    <button type="button" class="login-submit-btn" onclick="adminSignup()">Register Admin</button>
+  </div>
+
+</div>
+
+<script src="js/admin-signup.js"></script>
+</body>
+</html>

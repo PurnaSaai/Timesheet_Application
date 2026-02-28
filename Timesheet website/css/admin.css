@@ -1,0 +1,99 @@
+/* admin.css */
+
+.admin-tabs {
+  display: flex;
+  gap: 10px;
+  padding: 10px 16px;
+  flex-wrap: wrap;
+}
+
+.admin-tabs button {
+  padding: 8px 14px;
+  border: none;
+  background: #2563eb;
+  color: white;
+}
+
+.top-section label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+
+.top-section button{
+  margin-top: 1vmax;
+}
+
+/* FORCE TABLE LAYOUT BACK */
+.dashboard table {
+  display: table !important;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.dashboard thead {
+  display: table-header-group !important;
+}
+
+.dashboard tbody {
+  display: table-row-group !important;
+}
+
+.dashboard tr {
+  display: table-row !important;
+}
+
+.dashboard th,
+.dashboard td {
+  display: table-cell !important;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.dashboard th {
+  background: #1e3a8a;
+  color: white;
+}
+
+/* FLEX SHOULD NEVER AFFECT TABLES */
+.dashboard table,
+.dashboard table * {
+  flex: none !important;
+}
+
+
+.dashboard {
+  padding: 16px;
+  overflow-x: auto;
+}
+
+.top-section,
+.filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.top-section select,
+.filters select {
+  min-width: 140px;
+  padding: 6px;
+}
+
+.admin-action-btn {
+  padding: 6px 10px;
+  border-radius: 4px;
+}
+
+.approve-btn {
+  background: #22c55e;
+  color: white;
+}
+
+.reject-btn {
+  background: #ef4444;
+  color: white;
+}

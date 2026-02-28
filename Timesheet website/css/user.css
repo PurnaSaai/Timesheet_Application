@@ -1,0 +1,102 @@
+/* user.css */
+
+.dashboard {
+  padding: 16px;
+}
+
+.top-section {
+  background: white;
+  padding: 14px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-radius: 6px;
+}
+
+
+.total-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* TABLE WRAPPER FOR MOBILE */
+.table-wrapper {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  min-width: 700px;
+}
+
+th, td     {
+  border: 1px solid #ddd;
+  padding: 6px;
+  text-align: center;
+}
+
+th {
+  background: #1e3a8a;
+  color: white;
+}
+
+.monthly-summary {
+  margin-top: 12px;
+  background: white;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: right;
+}
+
+td .uri-wrapper {
+  overflow: visible;
+}
+.uri-wrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+.uri-wrapper input {
+  width: 100%;
+  min-height: 5vmin;
+  box-sizing: border-box;
+  font-size: 18px;
+  font-weight: 400;
+}
+.uri-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;              /* matches URI column only */
+  background: #fff;
+  border: 1px solid #ccc;
+  z-index: 20;
+}
+.uri-dropdown div {
+  padding: 2px 1px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.uri-dropdown div:hover {
+  background-color: #f0f0f0;
+}
+
+/* Description column textarea */
+.desc-input {
+  width: 100%;
+  min-height: 1vmin;
+  resize: none;                 /* prevent manual resize breaking layout */
+  box-sizing: border-box;       /* VERY IMPORTANT */
+  padding: 2px 2px;
+  font-family: inherit;
+  font-size: 18px;
+}
+
+/* Make sure td allows full width */
+td textarea {
+  display: block;
+}

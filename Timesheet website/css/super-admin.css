@@ -1,0 +1,182 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+}
+
+
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: #f2f2f2;
+}
+
+.tabs button {
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.section {
+  padding: 20px;
+}
+
+.hidden {
+  display: none;
+}
+
+.filters {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.timesheet-table {
+  width: 100%;
+
+}
+
+.timesheet-table th,
+.timesheet-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+}
+
+.timesheet-table th{
+    background-color: #1e3a8a;
+    color: white;
+}
+
+.top-section,
+.filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.top-section select,
+.filters select {
+  min-width: 140px;
+  padding: 6px;
+}
+
+.dashboard table {
+  display: table !important;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.dashboard thead {
+  display: table-header-group !important;
+}
+
+.dashboard tbody {
+  display: table-row-group !important;
+}
+
+.dashboard tr {
+  display: table-row !important;
+}
+
+.dashboard th,
+.dashboard td {
+  display: table-cell !important;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.dashboard th {
+  background: #1e3a8a;
+  color: white;
+}
+
+/* FLEX SHOULD NEVER AFFECT TABLES */
+.dashboard table,
+.dashboard table * {
+  flex: none !important;
+}
+
+
+.dashboard {
+  padding: 16px;
+  overflow-x: auto;
+}
+
+/*---------------------- Approval Section -----------------------------*/
+
+.badge {
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 7px;
+  font-size: 12px;
+  margin-left: 6px;
+  display: none;
+}
+
+/* --------------------- Holiday Section ----------------------------- */
+
+#holidaysSection {
+  padding: 20px;
+}
+
+.holiday-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  align-items: center;
+}
+
+.holiday-controls select,
+.holiday-controls input {
+  padding: 6px 8px;
+  font-size: 14px;
+}
+
+.holiday-controls button {
+  padding: 6px 12px;
+  background-color: #1f4fd8;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.holiday-controls button:hover {
+  background-color: #163aa9;
+}
+
+.holiday-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.holiday-table th,
+.holiday-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+.holiday-table th {
+  background-color: #1f3c88;
+  color: white;
+}
+
+.holiday-table td button {
+  padding: 4px 8px;
+  background-color: #1f4fd8;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.holiday-table td button:hover {
+  background-color: #163aa9;
+}

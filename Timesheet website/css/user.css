@@ -1,7 +1,11 @@
 /* user.css */
 
+
 .dashboard {
   padding: 16px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  margin: 10px;
 }
 
 .top-section {
@@ -14,6 +18,15 @@
   border-radius: 6px;
 }
 
+button{
+  background-color: var(--primary);
+  color: white;
+}
+button:hover{
+  color: var(--primary);
+  background-color: white;
+  border: 1px solid var(--primary);
+}
 
 .total-box {
   display: flex;
@@ -22,10 +35,24 @@
   flex-wrap: wrap;
 }
 
-/* TABLE WRAPPER FOR MOBILE */
-.table-wrapper {
-  overflow-x: auto;
+#addEntryBox {
+  padding: 5px 0;
 }
+
+#addEntryBox button{
+  background-color: var(--primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+#addEntryBox button:hover{
+  background-color: #fff;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+
+/* TABLE WRAPPER FOR MOBILE */
+
 
 table {
   width: 100%;
@@ -51,6 +78,10 @@ th {
   text-align: right;
 }
 
+td textarea {
+  display: block;
+}
+
 td .uri-wrapper {
   overflow: visible;
 }
@@ -61,16 +92,16 @@ td .uri-wrapper {
 }
 .uri-wrapper input {
   width: 100%;
-  min-height: 5vmin;
+  min-height: 3vmin;
   box-sizing: border-box;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 400;
 }
 .uri-dropdown {
   position: absolute;
   top: 100%;
   left: 0;
-  width: 100%;              /* matches URI column only */
+  width: 100%;              
   background: #fff;
   border: 1px solid #ccc;
   z-index: 20;
@@ -80,23 +111,39 @@ td .uri-wrapper {
   cursor: pointer;
   user-select: none;
 }
-
 .uri-dropdown div:hover {
   background-color: #f0f0f0;
 }
-
+.uri-arrow {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--primary);
+  font-size: 12px;
+  cursor: pointer;
+  pointer-events: auto;
+}
 /* Description column textarea */
 .desc-input {
   width: 100%;
-  min-height: 1vmin;
-  resize: none;                 /* prevent manual resize breaking layout */
-  box-sizing: border-box;       /* VERY IMPORTANT */
-  padding: 2px 2px;
+  min-height: 0vmin;
+  resize: none;                 
+  box-sizing: border-box;       
+  padding: 1px 1px;
   font-family: inherit;
-  font-size: 18px;
+  font-size: 14px;
 }
 
-/* Make sure td allows full width */
-td textarea {
-  display: block;
+.submit-day-btn{
+  background-color: var(--primary);
+  color: #fff;
+  padding: 10px 6px;
+  border-radius: 10px;
+}
+
+.submit-day-btn:hover{
+  background-color: #fff;
+  color: rgb(8, 165, 8);
+  border: 1px solid rgb(8, 165, 8);
 }

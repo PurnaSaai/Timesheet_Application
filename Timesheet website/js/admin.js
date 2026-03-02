@@ -483,8 +483,8 @@ function toggleActionColumn() {
 function renderActions(row) {
   if (row.status === "SUBMITTED") {
     return `
-      <button style="margin: 2px; padding:4px 3px; font-weight:700;" onclick="approveTimesheet(${row.ts_id})">Approve</button>
-      <button style="margin: 2px; padding:4px 10px; font-weight:700;" onclick="rejectTimesheet(${row.ts_id})">Reject</button>
+      <button id="app-btn" style="margin: 2px; padding:4px 3px; font-weight:700;" onclick="approveTimesheet(${row.ts_id})">Approve</button>
+      <button id="rej-btn" style="margin: 2px; padding:4px 10px; font-weight:700;" onclick="rejectTimesheet(${row.ts_id})">Reject</button>
     `;
   }
 

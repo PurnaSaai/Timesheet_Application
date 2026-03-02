@@ -1,4 +1,15 @@
 /* ================= ADMIN DASHBOARD ================= */
+body,html{
+  width: 100%;
+  overflow: none;
+}
+*{
+  overflow: none;
+}
+.navbar{
+  width: 100%;
+  height: 90px;
+}
 
 .dashboard {
   background: var(--card);
@@ -6,15 +17,27 @@
   padding: 28px;
   border-radius: 14px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
-  border-top: 2px solid var(--border);
-  border-right: 2px solid var(--border);
+  border: 2px solid var(--border);
+  border-bottom: 5px solid var(--border);
+  border-left:none;
+  width: 95%;
+  display: flex;
 }
 
 
+.tt{
+  overflow: auto;
+}
+
+table th{
+  background-color: #1f3c88;
+  color: white;
+}
+
 
 .dashboard table td,th{
-  border: 1px solid black;
-  border-collapse: separate;
+  border: 2px solid var(--border);
+  border-collapse: collapse;
 }
 
 .admin-tabs {
@@ -85,26 +108,26 @@ input {
 
 /* Action Buttons */
 
-.approve-btn {
+table #app-btn {
   background: white;
   color: #1f4fd8;
   border: 1px solid #1f3c88;
 }
 
-.approve-btn:hover{
+table #app-btn:hover{
   background: #1f4fd8;
   color: white;
+  border: 1px solid var(--primary);
 }
 
-.reject-btn {
-  background: white;
-  color: #1f4fd8;
-  border: 1px solid #1f3c88;
+table #rej-btn{
+  background-color: white;
+  color: red;
+  border: 1px solid red;
 }
-
-.reject-btn:hover{
-  background: #1f4fd8;
+table #rej-btn:hover{
   color: white;
+  background-color: red;
 }
 
 .admin-action-btn {

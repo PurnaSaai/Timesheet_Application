@@ -38,10 +38,8 @@
     <div class="total-box">
       <b>Expected Hours:</b>
       <span id="totalHours">0.00</span>h
-      <select id="monthSelect" onchange="changeMonth()"></select>
+      <select id="monthSelect" onchange="changePeriod()"></select>
       <select id="yearSelect" onchange="changePeriod()"></select>
-      
-
     </div>
   </div>
 
@@ -49,8 +47,8 @@
     <button onclick="handleAddEntry()">+ Add Entry</button>
   </div>
 
-  <div class="table-wrapper">
-    <table>
+  <div>
+    <table class="table-wrapper">
       <colgroup>
         <col class="col-date">
         <col class="col-uri">

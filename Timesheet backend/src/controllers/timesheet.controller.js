@@ -411,31 +411,32 @@ exports.getMonthlyTotal = async (req, res) => {
 
 
 exports.autoSubmitIfNeeded = async (userId) => {
-  const today = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
-
-  // Find all past draft days
-  const [rows] = await db.query(
-    `SELECT ts_id, work_dt 
-     FROM timesheets
-     WHERE uid = ?
-       AND status = 'DRAFT'
-       AND work_dt < ?`,
-    [userId, today]
-  );
-
-  if (!rows.length) return;
-
-  const ids = rows.map(r => r.id);
-
-  await db.query(
-    `UPDATE timesheets
-     SET status = 'SUBMITTED',
-         sub_at = NOW()
-     WHERE ts_id IN (?)`,
-    [ids]
-  );
-
-  console.log("Auto-submitted:", ids);
+  try {
+    const [rows] = await db.query(
+      `
+      SELECT ts_id
+      FROM timesheets
+      WHERE uid = ?
+        AND status = 'DRAFT'
+        AND work_dt <= DATE_SUB(CURDATE(), INTERVAL 3 DAY)
+      `,
+      [userId]
+    );
+    if (!rows.length) return;
+    const ids = rows.map(r => r.ts_id);
+    await db.query(
+      `
+      UPDATE timesheets
+      SET status = 'SUBMITTED',
+          sub_at = NOW()
+      WHERE ts_id IN (?)
+      `,
+      [ids]
+    );
+    alert("Timesheets auto submitted");
+  } catch (err) {
+    alert("Auto submit failed", err);
+  }
 };
 
 exports.getMonthlyData = async (req, res) => {
@@ -557,7 +558,7 @@ exports.getMonthlyData = async (req, res) => {
 //   }
 // };
 exports.getAdminTimesheets = async (req, res) => {
-  const { employee, year, month, status } = req.query;
+  const { employee, department, year, month, status } = req.query;
   const { role, desg } = req.user;
 
   try {
@@ -566,6 +567,7 @@ exports.getAdminTimesheets = async (req, res) => {
         t.ts_id AS ts_id,
         u.emp_id,
         u.fname,
+        u.desg,
         t.work_dt,
         t.status,
         t.rej_reason,
@@ -607,7 +609,12 @@ exports.getAdminTimesheets = async (req, res) => {
       sql += " AND u.desg = ?";
       params.push(desg);
     }
-    // SUPER_ADMIN → no restriction
+    // SUPER_ADMIN - no restriction
+
+    if (role === "SUPER_ADMIN" && department && department !== "all"){
+      sql += "AND u.desg=?";
+      params.push(department);
+    }
 
     if (employee && employee !== "all") {
       sql += " AND t.uid = ?";
@@ -631,7 +638,7 @@ exports.getAdminTimesheets = async (req, res) => {
 
     sql += `
       GROUP BY 
-        t.ts_id, u.emp_id, u.fname, t.work_dt, 
+        t.ts_id, u.emp_id, u.fname, u.desg, t.work_dt, 
         t.status, t.rej_reason
       ORDER BY t.work_dt DESC
     `;

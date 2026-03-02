@@ -127,6 +127,7 @@ function changePeriod() {
 
   loadMonthlyTimesheets(year, month);
   calculateExpectedHours(year, month);
+  controlAddEntryVisibility();
 }
 
 
@@ -140,6 +141,26 @@ function changeMonth() {
   calculateExpectedHours();
   dayLocked = false;
 
+  loadMonthlyTimesheets(year, month);
+  calculateExpectedHours(year, month);
+}
+
+function controlAddEntryVisibility() {
+  const selectedYear = Number(document.getElementById("yearSelect").value);
+  const selectedMonth = Number(document.getElementById("monthSelect").value);
+
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth(); // 0-based
+
+  const addBox = document.getElementById("addEntryBox");
+
+  // Allow only if current month & year
+  if (selectedYear === currentYear && selectedMonth === currentMonth) {
+    addBox.style.display = "block";
+  } else {
+    addBox.style.display = "none";
+  }
 }
 
 // Notification
@@ -279,17 +300,16 @@ async function calculateExpectedHours() {
 
 
 // Get present month data
-async function loadMonthlyTimesheets() {
-  const year = document.getElementById("yearSelect").value;
-  const month = Number(document.getElementById("monthSelect").value) + 1;
+async function loadMonthlyTimesheets(year, month) {
+
+  if (!year) year = document.getElementById("yearSelect").value;
+  if (!month) month = Number(document.getElementById("monthSelect").value) + 1;
 
   const res = await authFetch(
     `http://localhost:5000/api/timesheet/month/${year}/${month}`
   );
 
-
   const rows = await res.json();
-
   renderMonthlyRows(rows);
 }
 
@@ -453,6 +473,17 @@ function calculateHours(start, end) {
 
 /* ADD ENTRY */
 function handleAddEntry() {
+  const selectedYear = Number(document.getElementById("yearSelect").value);
+  const selectedMonth = Number(document.getElementById("monthSelect").value);
+  const now = new Date();
+
+  if (
+    selectedYear !== now.getFullYear() ||
+    selectedMonth !== now.getMonth()
+  ) {
+    alert("Cannot add entries for completed months.");
+    return;
+  }
   if (dayLocked) {
     alert("This day is already marked as Leave/Holiday");
     return;
@@ -470,7 +501,15 @@ function addRow() {
     <td>${new Date().toLocaleDateString()}</td>
     <td>
       <div class="uri-wrapper">
-        <input oninput="validateRow(this)">
+        <input 
+          onclick="toggleDropdown(this)" 
+          oninput="validateRow(this)"
+          placeholder="Select URI"
+          readonly
+        >
+        <i class="fa-solid fa-chevron-down uri-arrow" 
+           onclick="toggleDropdown(this)">
+        </i>
         <div class="uri-dropdown">
           <div onclick="selectURI(this)" style="cursor: pointer">Break</div>
           <div onclick="selectURI(this)" style="cursor: pointer">Meeting</div>
@@ -545,18 +584,19 @@ function validateRow(el) {
   startBtn.disabled = !(desc && uriType);
 }
 
-
-
-
 function toggleDropdown(el) {
+  const wrapper = el.closest(".uri-wrapper");
+  const dropdown = wrapper.querySelector(".uri-dropdown");
   const row = el.closest("tr");
+  if (row.dataset.running === "true" || row.dataset.completed === "true") {
+    return;
+  }
+  const isOpen = dropdown.style.display === "block";
 
-  if (row.dataset.completed === "true") return; //  block
+  document.querySelectorAll(".uri-dropdown").forEach(d => d.style.display = "none");
 
-  el.nextElementSibling.style.display = "block";
+  dropdown.style.display = isOpen ? "none" : "block";
 }
-
-
 
 function selectURI(el) {
   const row = el.closest("tr");
@@ -574,7 +614,7 @@ function selectURI(el) {
     input.focus();
   } else {
     input.value = value;
-    input.readOnly = true;
+    input.readOnly = false;
   }
 
   validateRow(input);
@@ -680,9 +720,7 @@ async function startTimer(btn) {
   }
 
   row.dataset.entryId = data.te_id;
-
-  row.dataset.running="true";
-
+  row.querySelector(".uri-wrapper input").readOnly = true;
   activeRow = row;
   row.startTime = new Date();
 
@@ -751,18 +789,11 @@ async function finishTimer(btn) {
 
 
   await authFetch(
-    `http://localhost:5000/api/timesheet/entry/${currentTimesheetId}`,
+    `http://localhost:5000/api/timesheet/entry/finish/${row.dataset.entryId}`,
     {
       method: "POST",
       body: JSON.stringify({
-        ur_type: uriType,
-        ur_custom:
-          uriType === "OTHERS"
-            ? row.querySelector(".uri-wrapper input").value
-            : null,
-        descr: desc,
-        start_at: startTime ? toMySQLLocalDateTime(startTime) : null,
-        end_at: endTime ? toMySQLLocalDateTime(endTime) : null
+        end_at: toMySQLLocalDateTime(new Date())
       })
     }
   );
@@ -823,6 +854,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await initUserPage();
 
   changePeriod();  // ← single controlled data load
+  controlAddEntryVisibility();
 });
 
 

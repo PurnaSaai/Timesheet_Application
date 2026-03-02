@@ -115,78 +115,6 @@ exports.adminSignup = async (req, res) => {
 
 
 /* LOGIN */
-// exports.login = async (req, res) => {
-//   console.log("LOGIN API HIT", req.body); 
-
-//   const { emp_id, password } = req.body;
-//   const loginType = req.body.loginType?.toUpperCase();
-
-
-//   try {
-//     const [rows] = await db.query(
-//       `SELECT * FROM users WHERE emp_id = ?`,
-//       [emp_id]
-//     );
-
-//     if (rows.length === 0) {
-//       return res.status(401).json({ message: "Invalid credentials" });
-//     }
-
-//     const user = rows[0];
-
-//     if (loginType !== user.role) {
-//       return res.status(403).json({
-//         message: `You are not authorized to login as ${loginType}`
-//       });
-//     }
-
-
-//     if (user.role === "USER" && user.app_status !== "APPROVED") {
-//       return res.status(403).json({
-//         message: "Account not approved by admin"
-//       });
-//     }
-
-//     const isMatch = await bcrypt.compare(password, user.pwd_hash);
-//     if (!isMatch) {
-//       return res.status(401).json({ message: "Invalid credentials" });
-//     }
-
-//     // Auto submit check
-//     if (user.role === "USER") {
-//       try {
-//         await autoSubmitIfNeeded(user.uid);
-//         await createTodayTimesheetIfNotExists(user.uid);
-//       } catch (err) {
-//         console.error("Auto timesheet init failed:", err);
-//       }
-//     }
-
-// // --------------------------Check-------------------------------
-//     const token = jwt.sign(
-//       {
-//         uid: user.uid,
-//         role: user.role,
-//         desg:user.desg
-//       },
-//       process.env.JWT_SECRET,
-//       { expiresIn: process.env.JWT_EXPIRES_IN }
-//     );
-
-//     res.json({
-//       message: "Login successful",
-//       token,
-//       role: user.role,
-//       desg:user.desg || null,
-//       fname:user.fname,
-//       emp_id:user.emp_id
-//     });
-
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// };
-
 exports.login = async (req, res) => {
   console.log("LOGIN CONTROLLER STARTED");
   console.log("LOGIN API HIT", req.body);
@@ -257,6 +185,9 @@ exports.login = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES_IN }
     );
+
+    const timesheetController = require("./timesheet.controller");
+    await timesheetController.autoSubmitIfNeeded(user.uid);
 
     res.json({
       message: "Login successful",

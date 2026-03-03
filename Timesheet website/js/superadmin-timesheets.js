@@ -142,41 +142,55 @@ function loadSuperAdminTimesheetsSection() {
 }
 
 async function approveSATimesheet(id) {
-  await authFetch(
-    `http://localhost:5000/api/timesheet/approve/${id}`,
-    { method: "POST" }
-  );
+  try {
+    const res = await authFetch(
+      `http://localhost:5000/api/timesheet/approve/${id}`,
+      { method: "POST" }
+    );
 
-  if (!res.ok) {
-    const err = await res.json();
-    alert(err.message || "Approval failed");
-    return;
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "Approval failed");
+      return;
+    }
+
+    alert("Timesheet approved");
+    loadSuperAdminTimesheets();
+
+  } catch (err) {
+    console.error("Approve error:", err);
+    alert("Approval failed");
   }
-
-  alert("Timesheet approved");
-  loadSuperAdminTimesheets();
 }
 
 async function rejectSATimesheet(id) {
   const reason = prompt("Enter rejection reason:");
   if (!reason) return;
 
-  await authFetch(
-    `http://localhost:5000/api/timesheet/reject/${id}`,
-    {
-      method: "POST",
-      body: JSON.stringify({ reason })
+  try {
+    const res = await authFetch(
+      `http://localhost:5000/api/timesheet/reject/${id}`,
+      {
+        method: "POST",
+        body: JSON.stringify({ reason })
+      }
+    );
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.message || "Rejection failed");
+      return;
     }
-  );
 
-  if (!res.ok) {
-    const err = await res.json();
-    alert(err.message || "Rejection failed");
-    return;
+    alert("Timesheet rejected");
+    loadSuperAdminTimesheets();
+
+  } catch (err) {
+    console.error("Reject error:", err);
+    alert("Rejection failed");
   }
-
-  alert("Timesheet rejected");
-  loadSuperAdminTimesheets();
 }
 
 async function overrideSATimesheet(id, currentStatus) {
